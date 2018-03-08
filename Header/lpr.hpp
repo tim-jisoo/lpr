@@ -15,8 +15,7 @@
 #include "../Tracker/Header/meanshift.hpp"
 
 #ifdef ACTIVATE_OPENCV
-#include "opencv/cv.h"
-#include "opencv/highgui.h"
+#include "opencv/cv.hpp"
 #endif
 
 #define LPR_CM_DATA_MAXSIZE		25

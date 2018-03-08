@@ -9,8 +9,7 @@
 #include "datastruct.hpp"
 
 #ifdef ACTIVATE_OPENCV
-#include "opencv/cv.h"
-#include "opencv/highgui.h"
+#include "opencv/cv.hpp"
 #endif
 
 #define	BLOB_DATA_MAXSIZE	200

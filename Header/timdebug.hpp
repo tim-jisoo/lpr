@@ -1,10 +1,9 @@
-//#define PATH_IMAGESET		"../../DB_TEST/"
 #define PATH_IMAGESET		"../../DB/"
 
 //#define ENVIRONMENT_BOARD
 
 #ifndef ENVIRONMENT_BOARD
-//#define ACTIVATE_OPENCV
+#define ACTIVATE_OPENCV
 #endif
 
 #ifdef ENVIRONMENT_BOARD
