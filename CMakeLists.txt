@@ -1,0 +1,12 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
+PROJECT( lpr )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+SET(CMAKE_VERBOSE_MAKEFILE true)
+SET(CMAKE_BUILD_TYPE Debug)
+SET(CMAKE_C_FLAGS_RELEASE "-Wall")
+ADD_EXECUTABLE(a.out Source/main_env_sdcd.cpp Source/blob.cpp Source/imgproc.cpp Source/lpr.cpp Tracker/Source/kalman.cpp Tracker/Source/meanshift.cpp)
+target_link_libraries( a.out ${OpenCV_LIBS} )
+
+ADD_EXECUTABLE(b.out Source/main_env_cam.cpp Source/blob.cpp Source/imgproc.cpp Source/lpr.cpp Tracker/Source/kalman.cpp Tracker/Source/meanshift.cpp)
+target_link_libraries( b.out ${OpenCV_LIBS} )
