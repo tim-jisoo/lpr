@@ -487,7 +487,7 @@ int Analyst::catchExtV(RECT pos, int* retv1, int* retv2)
 		iter = iter->next;
 	}
 	cv::imshow("histogram", imgHist);
-	cv::moveWindow("histogram", 700, 300);
+	cv::moveWindow("histogram", imgSobel.cols * 3 + imgLp.cols * 8, imgLp.rows << 3 );
 #endif
 
 		return 0;
@@ -948,7 +948,7 @@ int LPRManager::determine_lppos_yaxis(AREA size, uchar* hedge, uchar* vedge)
 		imgHaar.data[this->vm.data[i].x + this->vm.data[i].y * imgHaar.cols] = 0xFF;
 	}
 	cv::imshow("haar-horizon", imgHaar);
-	cv::moveWindow	("haar-horizon", 370,0);
+	cv::moveWindow	("haar-horizon", imgHaar.cols*3/2,0);
 #endif
 
 	if(bm.process(size, &this->vm) < 2)
@@ -985,7 +985,7 @@ int LPRManager::determine_lppos_yaxis(AREA size, uchar* hedge, uchar* vedge)
 			);
 	}
 	cv::imshow("sobel-vertical-tuple", imgSobel);
-	cv::moveWindow("sobel-vertical-tuple",370,230);
+	cv::moveWindow("sobel-vertical-tuple",imgSobel.cols*3/2, imgSobel.rows*3/2);
 #endif
 
 	return 0;
@@ -1008,7 +1008,7 @@ int LPRManager::determine_lppos_xaxis(AREA size, uchar* img, uchar* hedge, uchar
 		imgLpB.data[this->vm.data[i].x + this->vm.data[i].y * imgLpB.cols] = 0xFF;
 	}
 	cv::imshow("lp-binary", imgLpB);
-	cv::moveWindow("lp-binary", 700, 100);
+	cv::moveWindow("lp-binary", imgSobel.cols * 3 + imgLp.cols * 4, 0 );
 #endif
 
 	if(bm.process(this->pos.size, &this->vm) < 7)
@@ -1036,7 +1036,7 @@ int LPRManager::determine_lppos_xaxis(AREA size, uchar* img, uchar* hedge, uchar
 			     );
 	}
 	cv::imshow("lp-before-noise", imgLpN);
-	cv::moveWindow("lp-before-noise", 700, 170);
+	cv::moveWindow("lp-before-noise", imgSobel.cols * 3, imgLp.rows << 3);
 #endif
 
 
@@ -1063,7 +1063,7 @@ int LPRManager::determine_lppos_xaxis(AREA size, uchar* img, uchar* hedge, uchar
 
 	}
 	cv::imshow("lp-before-noisef", imgLpN);
-	cv::moveWindow("lp-before-noisef",700, 230);
+	cv::moveWindow("lp-before-noisef",imgSobel.cols*3 + imgLp.cols*4, imgLp.rows << 3);
 #endif
 
 	if(ex.process(size, img, vedge, &this->ne, &this->an, bundle, distance, &this->param, &this->pos, this->pos_tk) < 0)
@@ -1111,7 +1111,7 @@ int LPRManager::recognize(IMAGE* pImage, IMAGE* pLp, IMAGE* pTokens)
 
 	memcpy(imgSobel.data, _8bit_buff_2, sizeof(uchar) * imgSobel.cols * imgSobel.rows);
 	cv::imshow("sobel-vertical", imgSobel);
-	cv::moveWindow("sobel-vertical",0,230);
+	cv::moveWindow("sobel-vertical",0,imgSobel.rows * 3 / 2);
 #endif
 
 	if(this->determine_lppos_yaxis(pImage->size, _8bit_buff_1, _8bit_buff_2) < 0)
@@ -1128,7 +1128,7 @@ int LPRManager::recognize(IMAGE* pImage, IMAGE* pLp, IMAGE* pTokens)
 		      );
 	}
 	cv::imshow("lp-before", imgLp);
-	cv::moveWindow("lp-before",700, 0);
+	cv::moveWindow("lp-before",imgSobel.cols * 3, 0);
 	//cv::waitKey();
 #endif
 
@@ -1146,7 +1146,7 @@ int LPRManager::recognize(IMAGE* pImage, IMAGE* pLp, IMAGE* pTokens)
 		      );
 	}
 	cv::imshow("lp-after", imgLp);
-	cv::moveWindow("lp-after", 700, 400);
+	cv::moveWindow("lp-after", imgSobel.cols * 3, 300 );
 #endif
 	
 	this->move(pImage, pLp, pTokens, this->pos, this->pos_tk);
@@ -1155,12 +1155,12 @@ int LPRManager::recognize(IMAGE* pImage, IMAGE* pLp, IMAGE* pTokens)
 	buffLp = cv::Mat(pLp->size.h, pLp->size.w, CV_8UC1);
 	memcpy(buffLp.data, pLp->data, sizeof(uchar) * buffLp.cols * buffLp.rows); 
 	cv::imshow("final1", buffLp);
-	cv::moveWindow("final1", 800,0);
+	cv::moveWindow("final1", imgSobel.cols * 3, 500);
 
 	buffTk = cv::Mat(pTokens->size.h, pTokens->size.w, CV_8UC1);
 	memcpy(buffTk.data, pTokens->data, sizeof(uchar) * buffTk.cols * buffTk.rows);
 	cv::imshow("final2", buffTk);
-	cv::moveWindow("final2", 800,100);
+	cv::moveWindow("final2", imgSobel.cols * 3, 600);
 #endif
 	return 0;
 }

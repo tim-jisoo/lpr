@@ -1,4 +1,4 @@
-#define PATH_IMAGESET		"../../DB/"
+#define PATH_IMAGESET		"../../../DB/"
 
 //#define ENVIRONMENT_BOARD
 
@@ -7,5 +7,5 @@
 #endif
 
 #ifdef ENVIRONMENT_BOARD
-#define DELAY_ZERO
+//#define DELAY_ZERO
 #endif

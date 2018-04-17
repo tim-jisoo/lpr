@@ -136,6 +136,7 @@ int main(int argc, char** argv)
 		mod1 += (end1 - start1);
 		
 		nframe++;
+	
 #ifndef ENVIRONMENT_BOARD
 		start2 = clock();
 		if(lm.recognize(&fcvt, &lp, &tk) < 0)
@@ -150,7 +151,7 @@ int main(int argc, char** argv)
 		cv::Mat frame = cv::Mat(forig.size.h, forig.size.w, CV_8UC3);
 		memcpy(frame.data, forig.data, sizeof(uchar) * 3 * forig.size.h * forig.size.w);
 		cv::imshow("original", frame);
-		cv::moveWindow("original", 1000,500);
+		cv::moveWindow("original", 1300, 400);
 		cv::waitKey();
 #endif
 #endif
