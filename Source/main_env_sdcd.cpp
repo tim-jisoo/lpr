@@ -93,7 +93,7 @@ int main(int argc, char** argv)
 
 	if((dir_info = opendir(path)) == NULL)
 	{
-        	fprintf(stdout, "[error] main - no such path >> %s\n", path);
+        fprintf(stdout, "[error] main - no such path >> %s\n", path);
 		return -1;
 	}
 
