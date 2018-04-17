@@ -6,8 +6,9 @@ void imgproc_sobel(AREA size, uchar* img, uchar* hedge, uchar* vedge)
 	int sum;
 	int right,left;
 	int top, bot;
+	int avg;
 
-    	r = (size.h - 1) * size.w;
+    r = (size.h - 1) * size.w;
 
 	memset(hedge, 0x00, sizeof(uchar) * size.w);
 	memset(&hedge[r], 0x00, sizeof(uchar) * size.w);
@@ -17,7 +18,7 @@ void imgproc_sobel(AREA size, uchar* img, uchar* hedge, uchar* vedge)
 
 	for(r = 1; r < size.h - 1; r++)
 	{
-        	top = r - 1;
+       	top = r - 1;
 		bot = r + 1;
      
 		hedge[0 + r * size.w] = 0x00;
@@ -29,24 +30,22 @@ void imgproc_sobel(AREA size, uchar* img, uchar* hedge, uchar* vedge)
     		        left = c - 1;
 
 		        //calc vertical edge
-            		sum  = img[right + top * size.w];
-            		sum += img[right + r   * size.w] << 1;
+            	sum  = img[right + top * size.w];
+            	sum += img[right + r   * size.w] << 1;
 		        sum += img[right + bot * size.w];
-            		sum -= img[left  + top * size.w];
+            	sum -= img[left  + top * size.w];
            		sum -= img[left  + r   * size.w] << 1;
            		sum -= img[left  + bot * size.w];
-           		sum = ((sum > 0) ? sum : -sum) >> 3;
-           		vedge[c + r * size.w] = sum;
+				vedge[c + r * size.w] = ((sum > 0) ? sum : -sum) >> 3;
 
       			//calc horizontal edge
           		sum  = img[right + bot * size.w];
           		sum += img[c     + bot * size.w] << 1;
-	  		sum += img[left  + bot * size.w];
-	  		sum -= img[right + top * size.w];
+		  		sum += img[left  + bot * size.w];
+		  		sum -= img[right + top * size.w];
           		sum -= img[c     + top * size.w] << 1;
          		sum -= img[left  + top * size.w];
-         		sum = ((sum > 0) ? sum : -sum) >> 3;
-          		hedge[c + r * size.w] = sum;
+         		hedge[c + r * size.w] = ((sum > 0) ? sum : -sum) >> 3;
 	        }
 
 		hedge[(size.w - 1) + r * size.w] = 0x00;
@@ -112,6 +111,7 @@ void imgproc_haar(AREA size, uchar* hedge, VpixelManager* pVm)
 
 	pVm->init();
 
+
 	//there is no any data when processing img boundary.
 	//because sobel does not left result in case of img boundary.
 	for(r = 1; r < size.h - 1; r++)
@@ -147,7 +147,7 @@ void imgproc_haar(AREA size, uchar* hedge, VpixelManager* pVm)
 				state = 0;
 				cnt = 0;
 			}
-        	}
+        }
 	}
 }
 
