@@ -44,7 +44,6 @@ int main(int argc, char** argv)
 #endif
 	DIR			*dir_info;
 	struct dirent		*dir_entry;
-	char			path[100];
 	char			file[100];
 	int			nframe = 0, nError = 0;
 	time_t			start, end, start1, end1, start2, end2, mod1 = 0, mod2 = 0;
@@ -54,6 +53,12 @@ int main(int argc, char** argv)
 	IMAGE			fcvt;
 	IMAGE			lp;
 	IMAGE			tk;
+
+	if(argc != 2)
+	{
+		fprintf(stderr, "usage : prg path_of_DB\n");
+		return -1;
+	}
 
 #ifdef ENVIRONMENT_BOARD
 	if((fd = open( "/dev/mem", ( O_RDWR | O_SYNC ) ) ) < 0)
@@ -88,12 +93,10 @@ int main(int argc, char** argv)
 	text_image_addr[5] = (uchar*)(axi_virtual_base + (TEXT_IMAGE5_ADDR & HW_FPGA_AXI_MASK));
 	text_image_addr[6] = (uchar*)(axi_virtual_base + (TEXT_IMAGE6_ADDR & HW_FPGA_AXI_MASK));
 #endif
-	memset(path, 0, sizeof(path));
-	strncpy(path, PATH_IMAGESET, strlen(PATH_IMAGESET));
-
-	if((dir_info = opendir(path)) == NULL)
+	
+	if((dir_info = opendir(argv[1])) == NULL)
 	{
-        fprintf(stdout, "[error] main - no such path >> %s\n", path);
+        fprintf(stdout, "[error] main - no such path >> %s\n", argv[1]);
 		return -1;
 	}
 
@@ -126,7 +129,7 @@ int main(int argc, char** argv)
 		if(!strstr(dir_entry->d_name, ".bmp")) continue;
 
 		memset(file, 0x00, sizeof(file));
-		strncpy(file, path, strlen(path));
+		strncpy(file, argv[1], strlen(argv[1]));
 		strncat(file, dir_entry->d_name, strlen(dir_entry->d_name));
 
 		start1 = clock();

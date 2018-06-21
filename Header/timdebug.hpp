@@ -1,5 +1,3 @@
-#define PATH_IMAGESET		"../../../DB/"
-
 //#define ENVIRONMENT_BOARD
 
 #ifndef ENVIRONMENT_BOARD
